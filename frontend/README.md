@@ -4,6 +4,17 @@ A sophisticated, role-based Task Delegation Dashboard built with **React 19**, *
 
 ---
 
+## 🌐 Live API Base URL
+
+### **Live API Base URL**: `https://delegation-system-yuaa.onrender.com/api`
+
+## Live Frontend URL
+
+### **Live Frontend URL**: `https://delegation-system-gaurav8757s-projects.vercel.app`
+
+---
+
+
 ## 🛠️ Tech Stack & Key Libraries
 
 - **Core**: React 19 (Vite), JavaScript (ESM)
