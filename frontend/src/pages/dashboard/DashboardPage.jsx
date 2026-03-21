@@ -15,10 +15,11 @@ import {
 import { cn } from '../../lib/utils.js';
 import Loader from '../../shared/loader/Loader.jsx';
 import { Button } from '../../components/ui/button.jsx';
+import { useAuthStore } from '../../store/authStore.js';
 
 const COLORS = ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'];
-
 export default function DashboardPage() {
+    const role = useAuthStore((state) => state.role);
     const { data, isLoading, isError } = useQuery({
         queryKey: ['dashboard-stats'],
         queryFn: () => apiServices.get(API_ENDPOINTS.REPORTS.DASHBOARD),
@@ -31,16 +32,18 @@ export default function DashboardPage() {
     const stats = data?.data || {};
     const { delegationsByStatus, usersByRole, totalUsers, totalDelegations, recentActivity } = stats;
 
+    const isAdminOrSuper = role === 'admin' || role === 'superadmin';
+
     // Transform data for charts
     const delegationData = Object.entries(delegationsByStatus || {}).map(([name, value]) => ({ name: name.toUpperCase(), value }));
     const roleData = Object.entries(usersByRole || {}).map(([name, value]) => ({ name: name.toUpperCase(), value }));
 
     const cards = [
-        { title: 'Total Users', value: totalUsers, icon: Users, color: 'bg-blue-500/10 text-blue-500', trend: '+12%' },
-        { title: 'Total Delegations', value: totalDelegations, icon: ClipboardCheck, color: 'bg-emerald-500/10 text-emerald-500', trend: '+5%' },
-        { title: 'Pending Tasks', value: delegationsByStatus?.pending || 0, icon: Clock, color: 'bg-amber-500/10 text-amber-500', trend: '-2%' },
-        { title: 'Completion Rate', value: `${totalDelegations ? Math.round((delegationsByStatus?.completed / totalDelegations) * 100) : 0}%`, icon: TrendingUp, color: 'bg-purple-500/10 text-purple-500', trend: '+8%' },
-    ];
+        isAdminOrSuper && { title: 'Total Users', value: totalUsers, icon: Users, color: 'bg-blue-500/10 text-blue-500', trend: '+12%' },
+        { title: isAdminOrSuper ? 'Total Delegations' : 'My Delegations', value: totalDelegations, icon: ClipboardCheck, color: 'bg-emerald-500/10 text-emerald-500', trend: '+5%' },
+        { title: isAdminOrSuper ? 'Pending Tasks' : 'My Pending Tasks', value: delegationsByStatus?.pending || 0, icon: Clock, color: 'bg-amber-500/10 text-amber-500', trend: '-2%' },
+        { title: 'Completion Rate', value: `${totalDelegations ? Math.round(((delegationsByStatus?.completed || 0) / totalDelegations) * 100) : 0}%`, icon: TrendingUp, color: 'bg-purple-500/10 text-purple-500', trend: '+8%' },
+    ].filter(Boolean);
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
@@ -79,17 +82,17 @@ export default function DashboardPage() {
             </div>
 
             {/* Charts Row */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div className={cn("grid gap-8", isAdminOrSuper ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1")}>
                 {/* Bar Chart: Delegations */}
                 <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
                     <div className="flex items-center justify-between mb-8">
-                        <h2 className="text-xl font-bold">Delegation Status</h2>
+                        <h2 className="text-xl font-bold">{isAdminOrSuper ? "System-wide Delegation Status" : "My Task Progression"}</h2>
                         <Button 
                             variant="link" 
                             className="text-xs font-bold h-auto p-0"
-                            onClick={() => window.location.href = '/reports'}
+                            onClick={() => window.location.href = '/delegations'}
                         >
-                            VIEW FULL REPORT
+                            {isAdminOrSuper ? "VIEW FULL REPORT" : "MANAGE TASKS"}
                         </Button>
                     </div>
                     <div className="h-72 w-full">
@@ -105,33 +108,36 @@ export default function DashboardPage() {
                     </div>
                 </div>
 
-                {/* Pie Chart: User Roles */}
-                <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
-                    <h2 className="text-xl font-bold mb-8">User Roles Distribution</h2>
-                    <div className="h-72 w-full">
-                        <ResponsiveContainer width="100%" height="100%">
-                            <PieChart>
-                                <Pie
-                                    data={roleData}
-                                    innerRadius={70}
-                                    outerRadius={90}
-                                    paddingAngle={5}
-                                    dataKey="value"
-                                >
-                                    {roleData.map((entry, index) => (
-                                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                                    ))}
-                                </Pie>
-                                <Tooltip />
-                                <Legend verticalAlign="bottom" height={36} iconType="circle" />
-                            </PieChart>
-                        </ResponsiveContainer>
+                {/* Pie Chart: User Roles (Admin Only) */}
+                {isAdminOrSuper && (
+                    <div className="bg-card border border-border rounded-2xl p-6 shadow-sm">
+                        <h2 className="text-xl font-bold mb-8">User Roles Distribution</h2>
+                        <div className="h-72 w-full">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={roleData}
+                                        innerRadius={70}
+                                        outerRadius={90}
+                                        paddingAngle={5}
+                                        dataKey="value"
+                                    >
+                                        {roleData.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip />
+                                    <Legend verticalAlign="bottom" height={36} iconType="circle" />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
-            {/* Recent Activity Table (Simplified) */}
-            <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
+            {/* Recent Activity Table (Admin Only) */}
+            {isAdminOrSuper && (
+                <div className="bg-card border border-border rounded-2xl shadow-sm overflow-hidden">
                 <div className="p-6 border-b border-border flex items-center justify-between">
                     <div className="flex items-center gap-2">
                         <Activity className="text-primary" size={20} />
@@ -166,6 +172,7 @@ export default function DashboardPage() {
                     )}
                 </div>
             </div>
+            )}
         </div>
     );
 }

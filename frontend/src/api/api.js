@@ -33,18 +33,23 @@ class ApiServices {
         return response?.data;
     }
 
-    async post(url, data, config = {}) {
-        const response = await ApiRequestInstance.post(url, data, config);
+    async post(url, data) {
+        const response = await ApiRequestInstance.post(url, data);
         return response?.data;
     }
 
-    async patch(url, data, config = {}) {
-        const response = await ApiRequestInstance.patch(url, data, config);
+    async patch(url, data) {
+        const response = await ApiRequestInstance.patch(url, data);
         return response?.data;
     }
 
-    async delete(url, config = {}) {
-        const response = await ApiRequestInstance.delete(url, config);
+    async put(url, data) {
+        const response = await ApiRequestInstance.put(url, data);
+        return response?.data;
+    }
+
+    async delete(url) {
+        const response = await ApiRequestInstance.delete(url);
         return response?.data;
     }
 }

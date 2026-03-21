@@ -2,6 +2,7 @@ import {
     createDelegation,
     getAllDelegations,
     getDelegationsByUser,
+    getDelegationById,
     updateDelegationStatus,
     updateDelegation,
     deleteDelegation,
@@ -12,7 +13,7 @@ import { findUserById } from '../db_query/auth.query.js';
 import { logActivity } from '../db_query/activity.query.js';
 
 // Create a new delegation.
-// - Validates that the assigned user exists.
+// Validates that the assigned user exists.
 export const createDelegationService = async (data, createdBy) => {
     const { title, description, assigned_to, status } = data;
 

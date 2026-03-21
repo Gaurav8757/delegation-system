@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
-import { User, Mail, Lock, ShieldCheck, ArrowRight, UserPlus } from 'lucide-react';
+import { User, Mail, Lock, ShieldCheck, ArrowRight } from 'lucide-react';
+import logo from '../../assets/logo1.png';
 import { Button } from '../../components/ui/button.jsx';
 
 export default function RegisterPage() {
@@ -31,8 +32,8 @@ export default function RegisterPage() {
 
             <div className="w-full max-w-md bg-card border border-border rounded-3xl shadow-2xl p-8 relative z-10 transition-all hover:scale-[1.01]">
                 <div className="text-center mb-10">
-                    <div className="inline-flex items-center justify-center p-3 mb-4 rounded-2xl bg-primary/10 text-primary border border-primary/20">
-                        <UserPlus size={32} />
+                    <div className="inline-flex items-center justify-center mb-4">
+                        <img src={logo} alt="Logo" className="w-20 h-20 object-contain" />
                     </div>
                     <h1 className="text-3xl font-extrabold tracking-tight text-foreground">Secret Setup</h1>
                     <p className="text-muted-foreground text-sm mt-3 px-4">Initialize the system by creating the primary **Super Admin** account.</p>

@@ -78,7 +78,7 @@ export const DashboardLayout = () => {
 
                 {/* Page Content */}
                 <section className="flex-1 overflow-y-auto p-6 md:p-8 bg-muted/20">
-                    <div className="max-w-7xl mx-auto">
+                    <div className="flex-1 mx-auto">
                         <Outlet />
                     </div>
                 </section>

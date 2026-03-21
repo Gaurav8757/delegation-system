@@ -1,4 +1,5 @@
 import { Link, useLocation } from 'react-router';
+import logo from '../assets/logo1.png';
 import { useAuthStore } from '../store/authStore.js';
 import { 
     LayoutDashboard, 
@@ -39,18 +40,16 @@ export const Sidebar = ({ onLogout }) => {
         >
             {/* Header / Logo */}
             <div className="p-6 flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center text-primary-foreground font-bold">
-                    D
-                </div>
-                {!isCollapsed && (
+                <img src={logo} alt="Logo" className={cn("object-contain transition-all", isCollapsed ? "w-10 h-10" : "w-12 h-12")} />
+                {/* {!isCollapsed && (
                     <span className="font-bold text-lg tracking-tight truncate">
                         Delegation<span className="text-muted-foreground">App</span>
                     </span>
-                )}
+                )} */}
             </div>
 
             {/* Navigation */}
-            <nav className="flex-1 px-3 space-y-1">
+            <nav className="flex-1 px-3 space-y-2">
                 {filteredMenu.map((item) => {
                     const isActive = location.pathname === item.path;
                     return (
@@ -58,13 +57,13 @@ export const Sidebar = ({ onLogout }) => {
                             key={item.path}
                             to={item.path}
                             className={cn(
-                                "flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors",
+                                "flex items-center gap-3 px-4 py-2.5 rounded-md transition-colors",
                                 isActive 
                                     ? "bg-primary text-primary-foreground" 
                                     : "text-muted-foreground hover:bg-muted hover:text-foreground"
                             )}
                         >
-                            <item.icon size={20} className="shrink-0" />
+                            <item.icon size={22} className="shrink-0" />
                             {!isCollapsed && <span className="text-sm font-medium">{item.name}</span>}
                         </Link>
                     );
@@ -76,7 +75,7 @@ export const Sidebar = ({ onLogout }) => {
                 <Button
                     variant="ghost"
                     onClick={onLogout}
-                    className="w-full justify-start gap-3 px-3 py-6 h-auto text-destructive hover:bg-destructive/10 hover:text-destructive transition-colors shrink-0"
+                    className="w-full justify-start gap-3 px-4 py-3 h-auto text-destructive hover:bg-destructive/10 hover:text-destructive transition-colors shrink-0"
                 >
                     <LogOut size={20} className="shrink-0" />
                     {!isCollapsed && <span className="text-sm font-medium">Logout</span>}

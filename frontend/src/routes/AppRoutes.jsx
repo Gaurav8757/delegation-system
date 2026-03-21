@@ -9,6 +9,7 @@ const DashboardPage = lazy(() => import('../pages/dashboard/DashboardPage.jsx'))
 const UserManagement = lazy(() => import('../pages/users/UserManagement.jsx'));
 const DelegationManagement = lazy(() => import('../pages/delegations/DelegationManagement.jsx'));
 const ReportsPage = lazy(() => import('../pages/reports/ReportsPage.jsx'));
+const Settings = lazy(() => import('../pages/settings/Settings.jsx'));
 const UnauthorizedPage = lazy(() => import('../pages/UnauthorizedPage.jsx'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage.jsx'));
 
@@ -42,7 +43,7 @@ export const AppRoutes = () => {
                         element={<ProtectedRoute allowedRoles={['superadmin', 'admin']}><ReportsPage /></ProtectedRoute>} 
                     />
 
-                    <Route path="/settings" element={<div className="p-8"><h1 className="text-2xl font-bold">Settings</h1><p className="mt-4 text-muted-foreground">General configuration settings coming soon.</p></div>} />
+                    <Route path="/settings" element={<ProtectedRoute allowedRoles={['superadmin', 'admin']}><Settings /></ProtectedRoute>} />
                 </Route>
 
                 {/* 404 Route */}

@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
-import { Mail, Lock, Eye, EyeOff, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Mail, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
+import logo from '../../assets/logo1.png';
 import { cn } from '../../lib/utils.js';
 import { Button } from '../../components/ui/button.jsx';
 
@@ -38,8 +39,8 @@ export default function LoginPage() {
                 <div className="p-8">
                     {/* Header */}
                     <div className="flex flex-col items-center mb-10">
-                        <div className="w-14 h-14 rounded-xl bg-primary flex items-center justify-center text-primary-foreground shadow-lg shadow-primary/20 mb-4 animate-bounce-slow">
-                            <ShieldCheck size={32} />
+                        <div className="mb-4 animate-bounce-slow">
+                            <img src={logo} alt="Logo" className="w-16 h-16 object-contain" />
                         </div>
                         <h1 className="text-2xl font-bold tracking-tight text-foreground">Sign in to Account</h1>
                         <p className="text-muted-foreground text-sm mt-2">Enter credentials to access your dashboard</p>
