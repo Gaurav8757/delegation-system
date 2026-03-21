@@ -43,7 +43,7 @@ export const AppRoutes = () => {
                         element={<ProtectedRoute allowedRoles={['superadmin', 'admin']}><ReportsPage /></ProtectedRoute>} 
                     />
 
-                    <Route path="/settings" element={<ProtectedRoute allowedRoles={['superadmin', 'admin']}><Settings /></ProtectedRoute>} />
+                    <Route path="/settings" element={<ProtectedRoute allowedRoles={['superadmin', 'admin', 'user']}><Settings /></ProtectedRoute>} />
                 </Route>
 
                 {/* 404 Route */}
