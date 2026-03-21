@@ -2,6 +2,7 @@ import {
     getAllUsers,
     getUsersByRole,
     updateUserRole,
+    updateUser,
     deleteUser,
     getUserCount,
     getUserCountByRole,
@@ -67,6 +68,31 @@ export const updateUserRoleService = async (targetId, newRole, requestorRole) =>
     }
 
     const updated = await updateUserRole(targetId, newRole);
+    if (!updated) {
+        const err = new Error('User not found');
+        err.statusCode = 404;
+        throw err;
+    }
+    return updated;
+};
+
+// Update a user. (superadmin only)
+export const updateUserService = async (targetId, data, requestorRole) => {
+    if (requestorRole !== 'superadmin') {
+        const err = new Error('Only superadmin can update users');
+        err.statusCode = 403;
+        throw err;
+    }
+
+    const { name, email, role } = data;
+
+    if (role === 'superadmin') {
+        const err = new Error('Cannot promote to superadmin');
+        err.statusCode = 403;
+        throw err;
+    }
+
+    const updated = await updateUser(targetId, name, email, role);
     if (!updated) {
         const err = new Error('User not found');
         err.statusCode = 404;

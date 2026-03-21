@@ -2,6 +2,7 @@ import {
     getAllUsersService,
     createUserByAdminService,
     updateUserRoleService,
+    updateUserService,
     deleteUserService,
 } from '../services/user.service.js';
 
@@ -32,6 +33,17 @@ export const updateUserRole = async (req, res, next) => {
     try {
         await updateUserRoleService(req.params.id, req.body.role, req.user.role);
         res.status(200).json({ success: true, message: 'User role updated' });
+    } catch (err) {
+        res.status(err.statusCode || 500);
+        next(err);
+    }
+};
+
+/** PUT /api/users/:id — superadmin only */
+export const updateUser = async (req, res, next) => {
+    try {
+        await updateUserService(req.params.id, req.body, req.user.role);
+        res.status(200).json({ success: true, message: 'User updated' });
     } catch (err) {
         res.status(err.statusCode || 500);
         next(err);

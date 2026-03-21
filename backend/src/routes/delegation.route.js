@@ -5,12 +5,13 @@ import {
     getMyDelegations,
     getDelegationById,
     updateDelegationStatus,
+    updateFullDelegation,
     deleteDelegation,
 } from '../controllers/delegation.controller.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
 import { roleMiddleware } from '../middlewares/role.middleware.js';
 import { validateSchema } from '../middlewares/schemaValidatation.js';
-import { createDelegationSchema, updateDelegationSchema } from '../validations/validateSchema.js';
+import { createDelegationSchema, updateDelegationSchema, updateFullDelegationSchema } from '../validations/validateSchema.js';
 
 const delegationRouter = Router();
 
@@ -209,6 +210,7 @@ delegationRouter.get('/:id', authMiddleware, getDelegationById);
  *             schema: { $ref: '#/components/schemas/ErrorResponse' }
  */
 delegationRouter.patch('/:id/status', authMiddleware, validateSchema(updateDelegationSchema), updateDelegationStatus);
+delegationRouter.put('/:id', authMiddleware, roleMiddleware(['superadmin', 'admin']), validateSchema(updateFullDelegationSchema), updateFullDelegation);
 
 /**
  * @swagger

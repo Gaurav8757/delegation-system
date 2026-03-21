@@ -4,6 +4,7 @@ import {
     getUserDelegationsService,
     getDelegationByIdService,
     updateDelegationStatusService,
+    updateFullDelegationService,
     deleteDelegationService,
 } from '../services/delegation.service.js';
 
@@ -56,6 +57,17 @@ export const updateDelegationStatus = async (req, res, next) => {
     try {
         const updated = await updateDelegationStatusService(req.params.id, req.body.status, req.user);
         res.status(200).json({ success: true, message: 'Status updated', updated });
+    } catch (err) {
+        res.status(err.statusCode || 500);
+        next(err);
+    }
+};
+
+/** PUT /api/delegations/:id — superadmin / admin only */
+export const updateFullDelegation = async (req, res, next) => {
+    try {
+        await updateFullDelegationService(req.params.id, req.body, req.user);
+        res.status(200).json({ success: true, message: 'Delegation updated' });
     } catch (err) {
         res.status(err.statusCode || 500);
         next(err);

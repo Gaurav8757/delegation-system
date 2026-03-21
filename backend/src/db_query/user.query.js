@@ -26,6 +26,15 @@ export const updateUserRole = async (id, role) => {
     return result.affectedRows > 0;
 };
 
+// Update user details (name, email, role).
+export const updateUser = async (id, name, email, role) => {
+    const [result] = await mysqlPool.execute(
+        'UPDATE users SET name = ?, email = ?, role = ? WHERE id = ?',
+        [name, email, role, id]
+    );
+    return result.affectedRows > 0;
+};
+
 // Delete a user by ID. (superadmin only)
 export const deleteUser = async (id) => {
     const [result] = await mysqlPool.execute(

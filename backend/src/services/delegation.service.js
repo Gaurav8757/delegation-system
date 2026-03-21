@@ -2,8 +2,8 @@ import {
     createDelegation,
     getAllDelegations,
     getDelegationsByUser,
-    getDelegationById,
     updateDelegationStatus,
+    updateDelegation,
     deleteDelegation,
     getDelegationStats,
     getDelegationStatsByUser,
@@ -70,6 +70,38 @@ export const updateDelegationStatusService = async (id, status, requestUser) => 
     const updated = await updateDelegationStatus(id, status);
     if (updated) {
         logActivity(requestUser.id, `Updated delegation #${id} status to: ${status}`).catch(() => {});
+    }
+    return updated;
+};
+
+// Update a full delegation. (superadmin / admin only)
+export const updateFullDelegationService = async (id, data, requestUser) => {
+    if (requestUser.role === 'user') {
+        const err = new Error('Forbidden: Users cannot update delegation details');
+        err.statusCode = 403;
+        throw err;
+    }
+
+    const delegation = await getDelegationById(id);
+    if (!delegation) {
+        const err = new Error('Delegation not found');
+        err.statusCode = 404;
+        throw err;
+    }
+
+    const { title, description, assigned_to, status } = data;
+
+    // Ensure the assigned user exists
+    const assignee = await findUserById(assigned_to);
+    if (!assignee) {
+        const err = new Error(`User with id ${assigned_to} does not exist`);
+        err.statusCode = 404;
+        throw err;
+    }
+
+    const updated = await updateDelegation(id, title, description, assigned_to, status);
+    if (updated) {
+        logActivity(requestUser.id, `Updated delegation #${id}: "${title}"`).catch(() => {});
     }
     return updated;
 };

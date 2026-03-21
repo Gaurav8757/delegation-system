@@ -77,6 +77,15 @@ export const updateDelegationStatus = async (id, status) => {
     return result.affectedRows > 0;
 };
 
+// Update a full delegation.
+export const updateDelegation = async (id, title, description, assigned_to, status) => {
+    const [result] = await mysqlPool.execute(
+        'UPDATE delegations SET title = ?, description = ?, assigned_to = ?, status = ? WHERE id = ?',
+        [title, description || null, assigned_to, status, id]
+    );
+    return result.affectedRows > 0;
+};
+
 // Delete a delegation by ID. (superadmin only)
 export const deleteDelegation = async (id) => {
     const [result] = await mysqlPool.execute(

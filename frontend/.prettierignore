@@ -1,0 +1,12 @@
+node_modules
+package*.json
+components.json
+eslint.config.js
+tsconfig.json
+.vscode
+.idea
+.DS_Store
+*.log
+*.lock
+*.swp
+vite.config.js

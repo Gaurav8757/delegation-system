@@ -38,6 +38,17 @@ export const updateDelegationSchema = z.object({
     }),
 });
 
+// Update full delegation (admin / superadmin)
+export const updateFullDelegationSchema = z.object({
+    title: z.string().min(3, "Title must be at least 3 characters"),
+    description: z.string().optional(),
+    assigned_to: z
+        .number({ invalid_type_error: "assigned_to must be a number" })
+        .int()
+        .positive("assigned_to must be a positive integer"),
+    status: z.enum(['pending', 'in-progress', 'completed']).optional().default('pending'),
+});
+
 // Create user by admin / superadmin
 export const createUserByAdminSchema = z.object({
     name: z.string().min(3, "Name must be at least 3 characters"),
@@ -52,5 +63,14 @@ export const createUserByAdminSchema = z.object({
 export const updateUserRoleSchema = z.object({
     role: z.enum(['superadmin', 'admin', 'user'], {
         errorMap: () => ({ message: "Role must be superadmin, admin, or user" }),
+    }),
+});
+
+// Update full user (superadmin only)
+export const updateUserSchema = z.object({
+    name: z.string().min(3, "Name must be at least 3 characters"),
+    email: z.string().email("Invalid email address"),
+    role: z.enum(['admin', 'user'], {
+        errorMap: () => ({ message: "Role must be admin or user" }),
     }),
 });

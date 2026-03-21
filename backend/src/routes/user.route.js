@@ -3,12 +3,17 @@ import {
     getAllUsers,
     createUser,
     updateUserRole,
+    updateUser,
     deleteUser,
 } from '../controllers/user.controller.js';
 import { authMiddleware } from '../middlewares/auth.middleware.js';
 import { roleMiddleware } from '../middlewares/role.middleware.js';
 import { validateSchema } from '../middlewares/schemaValidatation.js';
-import { createUserByAdminSchema, updateUserRoleSchema } from '../validations/validateSchema.js';
+import { 
+    createUserByAdminSchema, 
+    updateUserRoleSchema,
+    updateUserSchema 
+} from '../validations/validateSchema.js';
 
 const userRouter = Router();
 
@@ -152,6 +157,7 @@ userRouter.post('/', authMiddleware, roleMiddleware(['superadmin', 'admin']), va
  *             schema: { $ref: '#/components/schemas/ErrorResponse' }
  */
 userRouter.patch('/:id/role', authMiddleware, roleMiddleware(['superadmin']), validateSchema(updateUserRoleSchema), updateUserRole);
+userRouter.put('/:id', authMiddleware, roleMiddleware(['superadmin']), validateSchema(updateUserSchema), updateUser);
 
 /**
  * @swagger
