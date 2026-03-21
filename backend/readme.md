@@ -60,6 +60,14 @@ Audit trail for system actions.
 
 ---
 
+## 🔑 Database Test Credentials (phpmyadmin)
+
+### Log in
+| Server: | sql12.freesqldatabase.com |
+| Username: | sql12820813 |
+| Password: | igv2CNE72b |
+
+
 ## 🔑 Server Test Credentials
 
 Use these pre-seeded accounts to test the API flows:
