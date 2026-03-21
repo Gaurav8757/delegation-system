@@ -79,7 +79,7 @@ We use a **Hook-per-Feature** pattern to keep components thin and logic reusable
 2.  **Configure Environment**:
     Create a `.env` file mapping to your backend API:
     ```env
-    VITE_API_BASE_URL=http://localhost:5000/api
+    VITE_API_BASE_URL=http://localhost:4000/api
     ```
 3.  **Run Development Server**:
     ```bash
