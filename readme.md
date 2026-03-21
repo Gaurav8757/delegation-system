@@ -9,6 +9,9 @@ Welcome to the **Delegation Management System**, a complete solution for task de
 This repository is divided into two main components:
 
 ### 🔹 [Backend API (Node.js + Express + MySQL)](./backend/README.md)
+
+### **Live API Base URL**: `https://delegation-system-yuaa.onrender.com/api`
+
 The core engine of the system.
 - **Security**: JWT Authentication, Argon2 Hashing, Rate Limiting, Helmet headers.
 - **Database**: Raw SQL queries with `mysql2` pool, Activity Audit Logs.

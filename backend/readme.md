@@ -82,6 +82,8 @@ Use these pre-seeded accounts to test the API flows:
 
 ## 🌐 API Documentation
 
+### **Live API Base URL**: `https://delegation-system-yuaa.onrender.com/api`
+
 Detailed endpoint map. All protected routes require a `Bearer <JWT>` token in the `Authorization` header.
 
 ### 🔐 Auth Module (`/api/auth`)
