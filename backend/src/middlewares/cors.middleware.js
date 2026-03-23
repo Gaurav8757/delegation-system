@@ -16,7 +16,7 @@ export const corsPolicy = cors({
             callback(new Error(`CORS: origin ${origin} not allowed`));
         }
     },
-    methods: process.env.ALLOWED_METHODS.split(','),
-    allowedHeaders: process.env.ALLOWED_HEADERS.split(','),
+    methods: (process.env.ALLOWED_METHODS || "GET,POST,PUT,DELETE").split(","),
+    allowedHeaders: (process.env.ALLOWED_HEADERS || "Content-Type,Authorization").split(","),
     credentials: true,
 });
