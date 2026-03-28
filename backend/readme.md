@@ -82,7 +82,7 @@ Use these pre-seeded accounts to test the API flows:
 
 ## 🌐 API Documentation
 
-### **Live API Base URL**: `https://delegation-system-yuaa.onrender.com/api`
+### **Live API Base URL**: `https://delegation-system-production.up.railway.app/api`
 
 Detailed endpoint map. All protected routes require a `Bearer <JWT>` token in the `Authorization` header.
 
@@ -152,7 +152,7 @@ npm start
 npm run dev
 ```
 
-Interactive Documentation: **`http://localhost:4000/api-docs`**
+Interactive Documentation: **`https://delegation-system-production.up.railway.app/api-docs`**
 
 ---
 

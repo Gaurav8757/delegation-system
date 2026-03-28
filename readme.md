@@ -6,7 +6,7 @@ Welcome to the **Delegation Management System**, a complete solution for task de
 
 ## 🌐 Live API Base URL
 
-### **Live API Base URL**: `https://delegation-system-yuaa.onrender.com/api`
+### **Live API Base URL**: `https://delegation-system-production.up.railway.app/api`
 
 ### **Live API Documentation**: `https://delegation-system-yuaa.onrender.com/api-docs`
 
@@ -25,7 +25,7 @@ This repository is divided into two main components:
 The core engine of the system.
 - **Security**: JWT Authentication, Argon2 Hashing, Rate Limiting, Helmet headers.
 - **Database**: Raw SQL queries with `mysql2` pool, Activity Audit Logs.
-- **Documentation**: Interactive [Swagger UI](http://localhost:4000/api-docs) (when running locally).
+- **Documentation**: Interactive [Swagger UI](https://delegation-system-production.up.railway.app/api-docs) (when running locally).
 - **Features**: RBAC (Super Admin, Admin, User), Zod Validation, Dashboard Stats.
 - 👉 [**Read Backend Documentation**](./backend/README.md)
 

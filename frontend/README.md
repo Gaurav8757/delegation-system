@@ -6,7 +6,7 @@ A sophisticated, role-based Task Delegation Dashboard built with **React 19**, *
 
 ## 🌐 Live API Base URL
 
-### **Live API Base URL**: `https://delegation-system-yuaa.onrender.com/api`
+### **Live API Base URL**: `https://delegation-system-production.up.railway.app/api`
 
 ## Live Frontend URL
 
@@ -90,7 +90,7 @@ We use a **Hook-per-Feature** pattern to keep components thin and logic reusable
 2.  **Configure Environment**:
     Create a `.env` file mapping to your backend API:
     ```env
-    VITE_API_BASE_URL=http://localhost:4000/api
+    VITE_API_BASE_URL=https://delegation-system-production.up.railway.app/api
     ```
 3.  **Run Development Server**:
     ```bash
