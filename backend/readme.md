@@ -82,7 +82,7 @@ Use these pre-seeded accounts to test the API flows:
 
 ## 🌐 API Documentation
 
-### **Live API Base URL**: `https://delegation-system-production.up.railway.app/api`
+### **Live API Base URL**: `https://delegation-system-production-ce24.up.railway.app/api`
 
 Detailed endpoint map. All protected routes require a `Bearer <JWT>` token in the `Authorization` header.
 

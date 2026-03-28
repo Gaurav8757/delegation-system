@@ -6,9 +6,9 @@ Welcome to the **Delegation Management System**, a complete solution for task de
 
 ## 🌐 Live API Base URL
 
-### **Live API Base URL**: `https://delegation-system-production.up.railway.app/api`
+### **Live API Base URL**: `https://delegation-system-production-ce24.up.railway.app/api`
 
-### **Live API Documentation**: `https://delegation-system-yuaa.onrender.com/api-docs`
+### **Live API Documentation**: `https://delegation-system-production-ce24.up.railway.app/api-docs`
 
 ## Live Frontend URL
 
